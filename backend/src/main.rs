@@ -1,3 +1,4 @@
+use actix_cors::Cors;
 use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use serde::Serialize;
 use sqlx::postgres::PgPoolOptions;
@@ -55,10 +56,17 @@ async fn main() -> std::io::Result<()> {
 
     println!("Starting server at http://127.0.0.1:9998");
 
-    // Start the HTTP server
+    // Start the HTTP server with CORS enabled
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(pool.clone()))
+            // Enable CORS middleware with permissive settings
+            .wrap(
+                Cors::default()
+                    .allow_any_origin()  // For production, consider restricting this
+                    .allow_any_method()
+                    .allow_any_header()
+            )
             .route("/table-data", web::get().to(get_table_data))
     })
     .bind("127.0.0.1:9998")?

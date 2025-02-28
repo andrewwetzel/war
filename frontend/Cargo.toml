@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 yew = { version = "0.20", features = ["csr"] }
-reqwest = { version = "^0.12", features = ["json", "wasm"] }
+gloo-net = "^0.6" 
 wasm-bindgen-futures = "^0.4"
 serde = { version = "1.0", features = ["derive"] }
+log = "0.4.26"

@@ -4,7 +4,8 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-actix-web = "4"
-sqlx = { version = "0.6", features = [ "runtime-actix-native-tls", "postgres" ] }
+actix-web = "4.9"
+actix-cors = "0.7"
+sqlx = { version = "0.6", features = ["runtime-actix-native-tls", "postgres"] }
 serde = { version = "1.0", features = ["derive"] }
 dotenv = "0.15"
