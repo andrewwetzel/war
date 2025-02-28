@@ -14,6 +14,8 @@ struct TableData {
 
 // Handler to fetch data from the database
 async fn get_table_data(pool: web::Data<sqlx::PgPool>) -> impl Responder {
+    println!("Received request for table data.");
+    
     let result = sqlx::query_as::<_, TableData>(
         "SELECT id, name, email, role FROM table_data"
     )
@@ -21,7 +23,16 @@ async fn get_table_data(pool: web::Data<sqlx::PgPool>) -> impl Responder {
     .await;
 
     match result {
-        Ok(data) => HttpResponse::Ok().json(data),
+        Ok(data) => {
+            println!("Successfully fetched {} rows.", data.len());
+            for row in &data {
+                println!(
+                    "Row - id: {}, name: {}, email: {}, role: {}",
+                    row.id, row.name, row.email, row.role
+                );
+            }
+            HttpResponse::Ok().json(data)
+        }
         Err(e) => {
             eprintln!("Database error: {}", e);
             HttpResponse::InternalServerError().body("Error fetching data")
@@ -42,13 +53,15 @@ async fn main() -> std::io::Result<()> {
         .await
         .expect("Failed to connect to the database");
 
+    println!("Starting server at http://127.0.0.1:9998");
+
     // Start the HTTP server
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(pool.clone()))
             .route("/table-data", web::get().to(get_table_data))
     })
-    .bind("127.0.0.1:8080")?
+    .bind("127.0.0.1:9998")?
     .run()
     .await
 }
