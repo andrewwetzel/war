@@ -1,0 +1,6 @@
+[build]
+target = "templates/index.html"
+filehash = false
+
+[static]
+directory = "static"

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Yew Table Example</title>
+    <link data-trunk rel="rust" href="../Cargo.toml" />
+    <style>
+        /* Base styles for dark mode */
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        /* Modern table styling with gray and gold accents */
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        .table th, .table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        .table th {
+            background-color: #1e1e1e;
+            color: #d4af37; /* Gold accent */
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: #161616;
+        }
+        .table tbody tr:hover {
+            background-color: #2c2c2c;
+        }
+        /* Optional: Add a subtle border to the entire table */
+        .table {
+            border: 1px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
